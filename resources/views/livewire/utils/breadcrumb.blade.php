@@ -43,7 +43,7 @@
                                 $crumbTitle = count($crumbs) > 2 && $isFirst ? '' : $crumb['title'];
                             @endphp
 
-                            @if (!$isLast)
+                            @if (!$isLast && !empty($crumb['url']))
                                 <a href="{{ $crumb['url'] }}"
                                     class="group flex items-center leading-none whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-500 transition-all hover:text-red-600 dark:text-zinc-400 dark:hover:text-red-500">
                                     @if ($isFirst)
@@ -51,6 +51,14 @@
                                     @endif
                                     <span class="leading-none inline-block max-w-17.5 sm:max-w-30 lg:max-w-50 truncate" title="{{ $crumbTitle }}">{{ $crumbTitle }}</span>
                                 </a>
+                            @elseif (!$isLast)
+                                <span
+                                    class="flex items-center leading-none whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500">
+                                    @if ($isFirst)
+                                        <x-icons.home class="{{ $crumbTitle ? 'me-1.5' : '' }} h-3.5 w-3.5" />
+                                    @endif
+                                    <span class="leading-none inline-block max-w-17.5 sm:max-w-30 lg:max-w-50 truncate" title="{{ $crumbTitle }}">{{ $crumbTitle }}</span>
+                                </span>
                             @else
                                 <span
                                     class="flex items-center leading-none whitespace-nowrap text-[10px] font-black uppercase tracking-[0.15em] text-red-600 dark:text-red-500">
@@ -98,7 +106,7 @@
                                     $crumbTitle = count($crumbs) > 2 && $isFirst ? '' : $crumb['title'];
                                 @endphp
 
-                                @if (!$isLast)
+                                @if (!$isLast && !empty($crumb['url']))
                                     <a href="{{ $crumb['url'] }}"
                                         class="group flex items-center leading-none whitespace-nowrap text-[9px] font-bold uppercase tracking-widest text-zinc-500 transition-all hover:text-red-600 dark:text-zinc-400 dark:hover:text-red-500">
                                         @if ($isFirst)
@@ -106,6 +114,14 @@
                                         @endif
                                         <span class="leading-none inline-block max-w-30 lg:max-w-50 truncate" title="{{ $crumbTitle }}">{{ $crumbTitle }}</span>
                                     </a>
+                                @elseif (!$isLast)
+                                    <span
+                                        class="flex items-center leading-none whitespace-nowrap text-[9px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+                                        @if ($isFirst)
+                                            <x-icons.home class="{{ $crumbTitle ? 'me-1.5' : '' }} h-3.5 w-3.5" />
+                                        @endif
+                                        <span class="leading-none inline-block max-w-30 lg:max-w-50 truncate" title="{{ $crumbTitle }}">{{ $crumbTitle }}</span>
+                                    </span>
                                 @else
                                     <span
                                         class="flex items-center leading-none whitespace-nowrap text-[9px] font-black uppercase tracking-widest text-red-600 dark:text-red-500 min-w-0">

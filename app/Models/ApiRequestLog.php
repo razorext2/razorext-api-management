@@ -39,4 +39,12 @@ class ApiRequestLog extends Model
     {
         return $this->belongsTo(ApiClient::class, 'api_client_id');
     }
+
+    /**
+     * Mutator: otomatis truncate user_agent maksimal 500 karakter saat disimpan ke DB.
+     */
+    public function setUserAgentAttribute(?string $value): void
+    {
+        $this->attributes['user_agent'] = $value !== null ? substr($value, 0, 500) : null;
+    }
 }

@@ -25,25 +25,25 @@ class ValidateApiKey
             ?? $request->bearerToken();
 
         if (empty($apiKey)) {
-            return $this->errorResponse('API key is missing. Please provide X-API-KEY header.', 401, $startTime);
+            return $this->errorResponse('API key is missing. Please provide X-API-KEY header.', 401, $startTime, $request);
         }
 
         // 2. Lookup Client
         $client = ApiClient::where('api_key', $apiKey)->first();
 
         if (! $client) {
-            return $this->errorResponse('Invalid API key provided.', 401, $startTime);
+            return $this->errorResponse('Invalid API key provided.', 401, $startTime, $request);
         }
 
         if (! $client->is_active) {
-            return $this->errorResponse('API client account is deactivated. Contact administrator.', 403, $startTime, $client->id);
+            return $this->errorResponse('API client account is deactivated. Contact administrator.', 403, $startTime, $request, $client->id);
         }
 
         // 3. IP Whitelist check (if configured)
         if (! empty($client->allowed_ips)) {
             $clientIp = $request->ip();
             if (! in_array($clientIp, $client->allowed_ips, true)) {
-                return $this->errorResponse("IP address [{$clientIp}] is not authorized for this API key.", 403, $startTime, $client->id);
+                return $this->errorResponse("IP address [{$clientIp}] is not authorized for this API key.", 403, $startTime, $request, $client->id);
             }
         }
 
@@ -54,15 +54,14 @@ class ValidateApiKey
         if (RateLimiter::tooManyAttempts($rateLimitKey, $maxAttempts)) {
             $seconds = RateLimiter::availableIn($rateLimitKey);
 
-            return $this->errorResponse("Rate limit exceeded. Try again in {$seconds} seconds.", 429, $startTime, $client->id);
+            return $this->errorResponse("Rate limit exceeded. Try again in {$seconds} seconds.", 429, $startTime, $request, $client->id);
         }
 
         RateLimiter::hit($rateLimitKey, 60);
 
-        // 5. Update last_used_at asynchronously/quietly
-        $client->timestamps = false;
-        $client->update(['last_used_at' => now()]);
-        $client->timestamps = true;
+        // 5. Update last_used_at — gunakan updateQuietly() agar tidak men-trigger
+        //    model event 'saved' yang akan broadcast WebSocket ke semua user.
+        $client->updateQuietly(['last_used_at' => now()]);
 
         // Attach client to request
         $request->attributes->set('api_client', $client);
@@ -73,8 +72,11 @@ class ValidateApiKey
 
         $executionTime = round((microtime(true) - $startTime) * 1000, 2);
 
-        // 7. Log API Request
-        $this->logRequest($client->id, $request, $response->getStatusCode(), $executionTime);
+        // 7. Log API Request — dijalankan setelah response dikirim ke client
+        //    menggunakan defer() agar tidak menambah latensi pada critical path.
+        defer(function () use ($client, $request, $response, $executionTime): void {
+            $this->logRequest($client->id, $request, $response->getStatusCode(), $executionTime);
+        });
 
         // Add telemetry headers
         $response->headers->set('X-Execution-Time-Ms', (string) $executionTime);
@@ -84,12 +86,15 @@ class ValidateApiKey
         return $response;
     }
 
-    protected function errorResponse(string $message, int $statusCode, float $startTime, ?int $clientId = null): JsonResponse
+    protected function errorResponse(string $message, int $statusCode, float $startTime, Request $request, ?int $clientId = null): JsonResponse
     {
         $executionTime = round((microtime(true) - $startTime) * 1000, 2);
 
         if ($clientId) {
-            $this->logRequest($clientId, request(), $statusCode, $executionTime, $message);
+            // Defer log untuk error path juga agar konsisten dengan success path
+            defer(function () use ($clientId, $request, $statusCode, $executionTime, $message): void {
+                $this->logRequest($clientId, $request, $statusCode, $executionTime, $message);
+            });
         }
 
         return response()->json([
@@ -109,7 +114,7 @@ class ValidateApiKey
                 'method' => $request->method(),
                 'status_code' => $statusCode,
                 'ip_address' => $request->ip(),
-                'user_agent' => substr((string) $request->userAgent(), 0, 500),
+                'user_agent' => $request->userAgent(),
                 'execution_time_ms' => $executionTime,
                 'error_message' => $errorMessage,
                 'created_at' => now(),

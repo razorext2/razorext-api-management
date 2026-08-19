@@ -16,8 +16,8 @@ class AprioriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'transactions' => 'required|array|min:1',
-            'transactions.*' => 'required|array|min:1',
+            'transactions' => 'required|array|min:1|max:5000',
+            'transactions.*' => 'required|array|min:1|max:100',
             'transactions.*.*' => 'required|string|max:255',
             'min_support' => 'nullable|numeric|between:0.0001,1.0',
             'min_confidence' => 'nullable|numeric|between:0.0001,1.0',
@@ -29,6 +29,8 @@ class AprioriRequest extends FormRequest
         return [
             'transactions.required' => 'Daftar transaksi wajib dikirimkan dalam format array of array.',
             'transactions.min' => 'Transaksi minimal berisi 1 baris.',
+            'transactions.max' => 'Maksimal 5.000 transaksi per request untuk mencegah overload server.',
+            'transactions.*.max' => 'Maksimal 100 item per baris transaksi.',
             'min_support.between' => 'Nilai min_support harus berupa desimal antara 0.0001 dan 1.0 (contoh: 0.2 untuk 20%).',
             'min_confidence.between' => 'Nilai min_confidence harus berupa desimal antara 0.0001 dan 1.0 (contoh: 0.6 untuk 60%).',
         ];

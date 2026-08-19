@@ -28,7 +28,8 @@ class Create extends Component
 
     public function generateNewKey(): void
     {
-        $this->generated_key = ApiClient::generateKey();
+        $this->generated_key    = ApiClient::generateKey();
+        $this->generated_secret = ApiClient::generateSecret();
     }
 
     protected function rules(): array

@@ -30,15 +30,22 @@
             <div class="rounded-xl border border-dashed border-red-300 bg-red-50/50 p-4 dark:border-red-900/50 dark:bg-red-950/20">
                 <div class="flex items-center justify-between">
                     <div>
-                        <span class="text-xs font-bold uppercase tracking-wider text-red-700 dark:text-red-400">Generated API Key (X-API-KEY)</span>
-                        <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Kunci ini akan digunakan oleh aplikasi client pada header request.</p>
+                        <span class="text-xs font-bold uppercase tracking-wider text-red-700 dark:text-red-400">Generated API Key & Secret Key</span>
+                        <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Kunci ini akan digunakan oleh aplikasi client. <strong class="text-amber-600 dark:text-amber-400">Salin Secret Key sekarang — tidak akan ditampilkan lagi setelah disimpan.</strong></p>
                     </div>
                     <button type="button" wire:click="generateNewKey" class="text-xs font-semibold text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
                         🔄 Generate Ulang
                     </button>
                 </div>
-                <div class="mt-2 flex items-center gap-2">
-                    <input type="text" readonly value="{{ $generated_key }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                <div class="mt-3 space-y-2">
+                    <div>
+                        <p class="mb-1 text-[10px] font-bold uppercase tracking-wider text-zinc-400">API Key (X-API-KEY)</p>
+                        <input type="text" readonly value="{{ $generated_key }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                    </div>
+                    <div>
+                        <p class="mb-1 text-[10px] font-bold uppercase tracking-wider text-zinc-400">Secret Key (untuk validasi signature, opsional)</p>
+                        <input type="text" readonly value="{{ $generated_secret }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                    </div>
                 </div>
             </div>
 

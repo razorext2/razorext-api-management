@@ -23,9 +23,21 @@ class Breadcrumb extends Component
             if (mb_strlen($title) > 10) {
                 $title = mb_substr($title, 0, 10).'...';
             }
+
+            $url = null;
+            try {
+                $subRequest = \Illuminate\Http\Request::create($path, 'GET');
+                $matchedRoute = \Illuminate\Support\Facades\Route::getRoutes()->match($subRequest);
+                if ($matchedRoute && ! ($matchedRoute->isFallback ?? false)) {
+                    $url = url($path);
+                }
+            } catch (\Throwable) {
+                $url = null;
+            }
+
             array_push($crumbs, [
                 'title' => $title,
-                'url' => url($path),
+                'url' => $url,
             ]);
         }
 

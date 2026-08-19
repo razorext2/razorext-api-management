@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
         Route::livewire('api-clients/{client}/edit', App\Livewire\Handler\ApiClients\Edit::class)->name('api-clients.edit')->middleware('permission:api-clients-edit');
 
         // Interactive Sandbox
+        Route::get('sandbox', fn () => redirect()->route('sandbox.apriori'))->name('sandbox.index')->middleware('permission:sandbox-access');
         Route::livewire('sandbox/apriori', App\Livewire\Handler\Sandbox\AprioriSandbox::class)->name('sandbox.apriori')->middleware('permission:sandbox-access');
 
         // Activity Logs

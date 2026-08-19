@@ -5,7 +5,6 @@ namespace App\Livewire\PowergridTables;
 use App\Models\ApiClient;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Blade;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
@@ -103,13 +102,10 @@ final class ApiClientTable extends PowerGridComponent
 
     public function actionsFromView(ApiClient $row)
     {
-        return Blade::render("
-            <div class=\"flex items-center justify-center gap-2\">
-                <x-button.primary href=\"{{ route('api-clients.edit', \$row->id) }}\" wire:navigate class=\"text-xs py-1.5 px-3\">
-                    Edit
-                </x-button.primary>
-            </div>
-        ", ['row' => $row]);
+        return view('components.table-component.action-edit', [
+            'row'       => $row,
+            'editRoute' => 'api-clients.edit',
+        ])->render();
     }
 
     public function queryString(): array

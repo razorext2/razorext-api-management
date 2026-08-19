@@ -66,8 +66,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // force https
-        URL::forceScheme('https');
+        // force https — hanya di environment production
+        if (app()->isProduction()) {
+            URL::forceScheme('https');
+        }
 
         // Implicitly grant "Super Admin" role all permissions
         Gate::before(function ($user, $ability) {

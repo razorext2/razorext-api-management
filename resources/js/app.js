@@ -29,10 +29,14 @@ window.addEventListener("load", () => {
 // Hard fallback (10s)
 setTimeout(triggerPreloaderExit, 10000);
 
-Livewire.hook("commit", ({ component, commit, respond, succeed, fail }) => {
-    succeed(({ snapshot, effect }) => {
-        queueMicrotask(() => {
-            initFlowbite();
+// Tunggu Livewire selesai di-init sebelum mendaftarkan hook
+// (Livewire global belum tersedia saat app.js pertama kali dieksekusi)
+document.addEventListener("livewire:init", () => {
+    Livewire.hook("commit", ({ component, commit, respond, succeed, fail }) => {
+        succeed(({ snapshot, effect }) => {
+            queueMicrotask(() => {
+                initFlowbite();
+            });
         });
     });
 });

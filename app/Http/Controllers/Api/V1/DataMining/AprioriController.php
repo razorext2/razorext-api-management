@@ -19,8 +19,8 @@ class AprioriController extends Controller
     public function calculate(AprioriRequest $request): JsonResponse
     {
         $transactions = $request->validated('transactions');
-        $minSupport = (float) $request->validated('min_support', 0.2);
-        $minConfidence = (float) $request->validated('min_confidence', 0.6);
+        $minSupport = (float) ($request->validated('min_support') ?? 0.2);
+        $minConfidence = (float) ($request->validated('min_confidence') ?? 0.6);
 
         $result = $this->aprioriService->calculate($transactions, $minSupport, $minConfidence);
 

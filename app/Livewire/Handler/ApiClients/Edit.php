@@ -18,6 +18,7 @@ class Edit extends Component
     public bool $is_active = true;
     public ?string $allowed_ips_text = null;
     public string $api_key = '';
+    public bool $key_changed = false;
 
     public function mount(ApiClient $client): void
     {
@@ -32,7 +33,8 @@ class Edit extends Component
 
     public function regenerateKey(): void
     {
-        $this->api_key = ApiClient::generateKey();
+        $this->api_key     = ApiClient::generateKey();
+        $this->key_changed = true;
     }
 
     protected function rules(): array

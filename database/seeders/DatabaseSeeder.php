@@ -59,11 +59,11 @@ class DatabaseSeeder extends Seeder
         $user->syncPermissions(Permission::all());
 
         // Default Demo API Client for Testing
-        ApiClient::updateOrCreate(
+        ApiClient::firstOrCreate(
             ['slug' => 'apriori-web-app'],
             [
                 'name' => 'Aplikasi Web Apriori Client',
-                'api_key' => ApiClient::generateKey(),
+                'api_key' => 'apm_live_apriori_web_client_key_2026',
                 'secret_key' => ApiClient::generateSecret(),
                 'description' => 'Default demo client for Apriori data mining web app',
                 'rate_limit_per_minute' => 120,

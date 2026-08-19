@@ -31,6 +31,7 @@ class AprioriController extends Controller
             'execution_time_ms' => $result['execution_time_ms'],
             'summary' => $result['summary'],
             'data' => [
+                'all_items' => $result['all_items'] ?? [],
                 'frequent_itemsets' => $result['frequent_itemsets'],
                 'association_rules' => $result['association_rules'],
             ],

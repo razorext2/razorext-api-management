@@ -49,3 +49,4 @@ CLAUDE.MD
 GEMINI.MD
 .junie
 .vite
+*.stackdump

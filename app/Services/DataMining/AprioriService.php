@@ -63,6 +63,17 @@ class AprioriService
         $frequentItemsets = [];
         $itemsetSupportMap = [];
 
+        $allItemSupports = [];
+        foreach ($itemCounts as $item => $count) {
+            $allItemSupports[] = [
+                'item' => $item,
+                'count' => $count,
+                'support' => round($count / $totalTransactions, 4),
+                'support_percent' => round(($count / $totalTransactions) * 100, 2) . '%',
+                'is_frequent' => $count >= $minSupportCount,
+            ];
+        }
+
         // L1
         $currentL = [];
         foreach ($itemCounts as $item => $count) {
@@ -171,6 +182,7 @@ class AprioriService
                         'antecedent' => $antecedent,
                         'consequent' => $consequent,
                         'rule_text' => 'Jika membeli [' . implode(', ', $antecedent) . '] maka membeli [' . implode(', ', $consequent) . ']',
+                        'count' => $itemsetCount,
                         'support' => round($itemsetSupport, 4),
                         'support_percent' => round($itemsetSupport * 100, 2) . '%',
                         'confidence' => round($confidence, 4),
@@ -202,6 +214,7 @@ class AprioriService
                 'total_frequent_itemsets' => count($frequentItemsets),
                 'total_rules_generated' => count($rules),
             ],
+            'all_items' => $allItemSupports,
             'frequent_itemsets' => $frequentItemsets,
             'association_rules' => $rules,
         ];

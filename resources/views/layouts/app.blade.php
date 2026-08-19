@@ -31,9 +31,6 @@
             {{-- Title --}}
             @include('layouts.partials.title')
 
-            {{-- Announcement --}}
-            <livewire:utils.announcement-container />
-
             <x-utils.offline-alert class="mb-2" />
 
             {{-- Main Content Container (Supports Livewire v4 $slot & Blade @yield('content')) --}}

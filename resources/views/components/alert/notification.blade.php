@@ -1,4 +1,4 @@
-{{-- Goal: Offline notification alert widget (simplified, announcement type removed), Livewire: -, Alpine: - --}}
+{{-- Goal: Offline notification alert widget, Livewire: -, Alpine: - --}}
 @props(['class' => null, 'id' => null, 'title' => null, 'desc' => null])
 
 <div x-bind:class="dynamicBg

@@ -93,7 +93,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Register model observers for real-time PowerGrid table refreshes
         $modelToTablesMap = [
-            'App\Models\Announcement' => ['AnnouncementTable'],
             'App\Models\User' => ['UserTable'],
             'App\Models\LogHistory' => ['LogTable'],
             'Spatie\Permission\Models\Role' => ['RolesTable'],

@@ -4,9 +4,6 @@
 
 use App\Http\Controllers\PushController;
 use App\Livewire\Dashboard;
-use App\Livewire\Handler\Announcement\Create;
-use App\Livewire\Handler\Announcement\Edit;
-use App\Livewire\Handler\Announcement\Index;
 use App\Livewire\Handler\Permissions\Update;
 use App\Livewire\NotificationsIndex;
 use App\Livewire\PowergridTables\LogTable;
@@ -56,11 +53,6 @@ Route::middleware(['auth'])->group(function () {
 
         // Notifications (Livewire 4 Page Components)
         Route::livewire('notifications', NotificationsIndex::class)->name('notifications.index');
-
-        // Announcements
-        Route::livewire('announcement', Index::class)->name('announcement.index')->middleware('permission:announcement-list');
-        Route::livewire('announcement/create', Create::class)->name('announcement.create')->middleware('permission:announcement-create');
-        Route::livewire('announcement/{announcement}/edit', Edit::class)->name('announcement.edit')->middleware('permission:announcement-edit');
 
         // Permissions
         Route::livewire('permissions', App\Livewire\Handler\Permissions\Index::class)->name('permissions.index')->middleware('permission:permissions-list');

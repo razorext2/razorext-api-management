@@ -49,8 +49,6 @@
 
 ### Notifications & System:
 - **notifications**: System notifications (id [UUID], type, notifiable_type, notifiable_id, data, read_at, created_at, updated_at)
-- **announcements**: System announcements (id, title, description, status, file_path, target_type, target_roles, target_users)
-- **announcement_reads**: Read status of announcements (id, announcement_id→announcements.id, user_id→users.id, read_at)
 - **tb_backups**: Database backup records (id, name, type, file, user_id, status)
 - **tb_big_event**: Large event details (id, name, description, location, start_date, end_date, status)
 - **tb_big_event_participant**: Event participants (id, big_event_id→tb_big_event.id, user_id→users.id, visitor_api, redirect_to)

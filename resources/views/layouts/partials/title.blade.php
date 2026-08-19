@@ -8,7 +8,6 @@
         'roles.*' => 'Roles',
         'permissions.*' => 'Permissions',
         'notifications.*' => 'Pusat Notifikasi',
-        'announcement.*' => 'Pusat Pengumuman',
         'settings.*' => 'Pengaturan Website',
     ];
 

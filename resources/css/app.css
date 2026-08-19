@@ -2,7 +2,6 @@
 @import "tailwindcss";
 @import "flatpickr/dist/flatpickr.min.css";
 @import "../../vendor/power-components/livewire-powergrid/dist/tailwind.css";
-@import "announcement.css";
 @import "liquid-glass.css";
 
 @plugin "@tailwindcss/forms";

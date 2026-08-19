@@ -63,7 +63,6 @@
     - User Accounts: [Akun Pengguna]({{ baseUrl }}/dashboard/users)
     - Roles Management: [Roles]({{ baseUrl }}/dashboard/roles)
     - Permissions Management: [Permissions]({{ baseUrl }}/dashboard/permissions)
-    - System Announcements: [Pemberitahuan]({{ baseUrl }}/dashboard/announcement)
     - Activity Logs: [Log Aktivitas]({{ baseUrl }}/dashboard/log)
     - Database Backups: [Manajemen Backup]({{ baseUrl }}/dashboard/backup)
     - Server Monitor: [Manajemen Server]({{ baseUrl }}/dashboard/server-overview)

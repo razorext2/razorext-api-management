@@ -60,17 +60,8 @@ return [
         'type' => 'group',
         'label' => 'System Settings',
         'icon' => 'computer',
-        'guard' => ['any_permission', ['announcement-list', 'log-list', 'manage-server']],
+        'guard' => ['any_permission', ['log-list', 'settings-manage']],
         'submenu' => [
-            [
-                'label' => 'Pemberitahuan',
-                'mobile_label' => 'Manajemen Pemberitahuan',
-                'route' => 'announcement.index',
-                'check' => ['announcement.*'],
-                'icon' => 'bullhorn',
-                'permission' => 'announcement-list',
-                'navigate' => true,
-            ],
             [
                 'label' => 'Log Aktivitas',
                 'mobile_label' => 'Log Aktivitas',

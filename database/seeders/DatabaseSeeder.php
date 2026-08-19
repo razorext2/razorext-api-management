@@ -30,10 +30,6 @@ class DatabaseSeeder extends Seeder
             'permissions-create',
             'permissions-edit',
             'permissions-delete',
-            'announcement-list',
-            'announcement-create',
-            'announcement-edit',
-            'announcement-delete',
             'log-list',
             'settings-manage',
         ];

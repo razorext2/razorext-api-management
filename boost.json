@@ -1,0 +1,29 @@
+{
+    "agents": [
+        "antigravity"
+    ],
+    "cloud": false,
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch": false,
+    "packages": [
+        "spatie/laravel-permission",
+        "spatie/laravel-backup",
+        "barryvdh/laravel-debugbar"
+    ],
+    "sail": false,
+    "skills": [
+        "laravel-best-practices",
+        "configuring-horizon",
+        "octane-development",
+        "livewire-development",
+        "pest-testing",
+        "tailwindcss-development",
+        "debug-using-debugbar",
+        "laravel-backup",
+        "laravel-permission-development",
+        "laravel-security",
+        "laravel-specialist",
+        "php-pro"
+    ]
+}

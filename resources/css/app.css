@@ -1,0 +1,607 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap");
+@import "tailwindcss";
+@import "flatpickr/dist/flatpickr.min.css";
+@import "../../vendor/power-components/livewire-powergrid/dist/tailwind.css";
+@import "announcement.css";
+@import "liquid-glass.css";
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "flowbite/plugin";
+
+@source "../../node_modules/flowbite/**/*.js";
+@source "../../../vendor/power-components/livewire-powergrid/resources/views/**/*.php";
+@source "../../../vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* Fonts */
+    --font-sans: "Poppins", var(--font-sans);
+    --font-gaming: "Bungee", cursive;
+    --font-montserrat: "Montserrat", sans-serif;
+
+    /* Colors */
+    --color-primary: var(--color-red-600);
+    --color-dark-primary: #18181b;
+    --color-dark-secondary: #242427;
+
+    /* PowerGrid Primary color alias (zinc) */
+    --color-pg-primary-50: var(--color-zinc-50);
+    --color-pg-primary-100: var(--color-zinc-100);
+    --color-pg-primary-200: var(--color-zinc-200);
+    --color-pg-primary-300: var(--color-zinc-300);
+    --color-pg-primary-400: var(--color-zinc-400);
+    --color-pg-primary-500: var(--color-zinc-500);
+    --color-pg-primary-600: var(--color-zinc-600);
+    --color-pg-primary-700: var(--color-zinc-700);
+    --color-pg-primary-800: var(--color-zinc-800);
+    --color-pg-primary-900: var(--color-zinc-900);
+    --color-pg-primary-950: var(--color-zinc-950);
+
+    /* Glassmorphism design tokens */
+    --color-glass-light: rgba(255, 255, 255, 0.5);
+    --color-glass-dark: rgba(24, 24, 27, 0.6);
+    --color-glass-border-light: rgba(228, 228, 231, 0.5);
+    --color-glass-border-dark: rgba(255, 255, 255, 0.1);
+    --color-glass-text-light: rgba(24, 24, 27, 0.9);
+    --color-glass-text-dark: rgba(255, 255, 255, 0.9);
+    --color-glass-muted-light: rgba(24, 24, 27, 0.55);
+    --color-glass-muted-dark: rgba(255, 255, 255, 0.55);
+    --color-glass-divider-light: rgba(24, 24, 27, 0.12);
+    --color-glass-divider-dark: rgba(255, 255, 255, 0.12);
+    --color-glass-hover-light: rgba(24, 24, 27, 0.06);
+    --color-glass-hover-dark: rgba(255, 255, 255, 0.08);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    transition: width 0.3s ease;
+    /* scrollbar-width: thin; */
+    scrollbar-width: bold;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(139, 139, 139, 0.2);
+    border-radius: 5px;
+    transition: opacity 0.5s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(163, 163, 163, 0.3);
+    /* Darken the scrollbar thumb on hover */
+}
+/* Hide scrollbar on mobile screens for html element */
+@media (max-width: 767px) {
+    html::-webkit-scrollbar {
+        display: none;
+    }
+    html {
+        -ms-overflow-style: none; /* IE/Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+}
+
+.swiper {
+    width: 600px;
+    height: 300px;
+}
+
+.dt-type-numeric {
+    text-align: left !important;
+}
+
+/*--------------------------------------------------------------
+# Preloader (Danzan-Inspired Diagonal Split)
+--------------------------------------------------------------*/
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    transition: opacity 0.6s ease-out;
+}
+
+#preloader.preloader-exit {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Force animations to stop so transitions can take over smoothly */
+.preloader-exit .door-left,
+.preloader-exit .door-right,
+.preloader-exit .part-line-wrapper,
+.preloader-exit .part-indo,
+.preloader-exit .part-dacin {
+    animation: none !important;
+}
+
+/* Background Doors */
+.door {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+html.dark .door {
+    background-color: #09090b; /* zinc-950 */
+}
+
+/* 20 degree diagonal slice: tan(20) = 0.36397.
+   Horizontal shift for 50vh is 50vh * 0.36397 = 18.2vh. */
+.door-left {
+    clip-path: polygon(
+        0 0,
+        calc(50vw + 18.2vh + 2px) 0,
+        calc(50vw - 18.2vh + 2px) 100%,
+        0 100%
+    );
+}
+
+.door-right {
+    clip-path: polygon(
+        calc(50vw + 18.2vh) 0,
+        100% 0,
+        100% 100%,
+        calc(50vw - 18.2vh) 100%
+    );
+}
+
+.preloader-exit .door-left {
+    transform: translate(-100vw, -40vh);
+}
+
+.preloader-exit .door-right {
+    transform: translate(100vw, 40vh);
+}
+
+/* Sliced Text Wrapper */
+.sliced-logo-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
+    font-size: 8vw; /* Full hero size */
+    font-weight: 900;
+    color: #dc2626; /* red-600 */
+    line-height: 1;
+    letter-spacing: -0.02em;
+    user-select: none;
+}
+
+@media (max-width: 768px) {
+    .sliced-logo-wrapper {
+        font-size: 11vw;
+    }
+}
+
+.part-indo,
+.part-dacin {
+    position: relative;
+    padding: 0 0.05em;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+/* Precise geometric 20-degree slice through the text.
+   tan(20) = 0.36397. For 1em height, shift is 0.364em. */
+.part-indo {
+    clip-path: polygon(
+        0 0,
+        calc(100% - 0.15em) 0,
+        calc(100% - 0.15em - 0.364em) 100%,
+        0 100%
+    );
+    margin-right: -0.15em;
+}
+
+.part-dacin {
+    clip-path: polygon(
+        calc(0.15em + 0.364em) 0,
+        100% 0,
+        100% 100%,
+        0.15em 100%
+    );
+    margin-left: -0.15em;
+}
+
+.part-line-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 6px;
+    height: 1.2em;
+    margin: 0 0.15em;
+    transform: skewX(-20deg);
+    transform-origin: center;
+    will-change: transform;
+    animation: scaleInLine 0.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+@media (min-width: 769px) {
+    .part-line-wrapper {
+        width: 14px;
+    }
+}
+
+.part-line {
+    width: 100%;
+    height: 100%;
+    background-color: #dc2626; /* red-600 */
+    will-change: transform;
+}
+
+/* Initial Entry Animation */
+.part-indo {
+    animation: slideInIndo 1s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+.part-dacin {
+    animation: slideInDacin 1s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+@keyframes slideInIndo {
+    from {
+        transform: translateY(-20vw);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInDacin {
+    from {
+        transform: translateY(20vw);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleInLine {
+    from {
+        transform: skewX(-20deg) scaleY(0);
+    }
+    to {
+        transform: skewX(-20deg) scaleY(1);
+    }
+}
+
+/* Exit Animations triggered by .preloader-exit */
+.preloader-exit .part-line-wrapper {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: skewX(-20deg) scaleY(0);
+}
+
+.preloader-exit .part-indo {
+    transform: translate(-100vw, -40vh);
+}
+
+.preloader-exit .part-dacin {
+    transform: translate(100vw, 40vh);
+}
+
+.dark .datatable-wrapper .datatable-table thead {
+    color: #9ca3af;
+    background-color: #18181b;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/*--------------------------------------------------------------
+# Quill Editor Dark Mode Overrides
+--------------------------------------------------------------*/
+.dark .ql-toolbar.ql-snow {
+    background-color: #18181b; /* zinc-900 */
+    border-color: #3f3f46; /* zinc-700 */
+}
+
+.dark .ql-container.ql-snow {
+    border-color: #3f3f46; /* zinc-700 */
+    overflow: hidden;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.dark .ql-editor {
+    color: #fafafa; /* zinc-50 */
+    background-color: #09090b; /* zinc-950 */
+}
+
+.dark .ql-editor.ql-blank::before {
+    color: #71717a; /* zinc-500 — placeholder */
+}
+
+/* Toolbar icons & pickers */
+.dark .ql-snow .ql-stroke {
+    stroke: #a1a1aa; /* zinc-400 */
+}
+
+.dark .ql-snow .ql-fill,
+.dark .ql-snow .ql-stroke.ql-fill {
+    fill: #a1a1aa; /* zinc-400 */
+}
+
+.dark .ql-snow .ql-picker {
+    color: #a1a1aa; /* zinc-400 */
+}
+
+.dark .ql-snow .ql-picker-options {
+    background-color: #27272a; /* zinc-800 */
+    border-color: #3f3f46;
+}
+
+.dark .ql-snow .ql-picker-item:hover,
+.dark .ql-snow .ql-picker-label:hover {
+    color: #fafafa;
+}
+
+.dark .ql-snow .ql-picker-item:hover .ql-stroke,
+.dark .ql-snow .ql-picker-label:hover .ql-stroke {
+    stroke: #fafafa;
+}
+
+.dark .ql-snow button:hover .ql-stroke {
+    stroke: #fafafa;
+}
+
+.dark .ql-snow button:hover .ql-fill {
+    fill: #fafafa;
+}
+
+.dark .ql-snow .ql-active .ql-stroke {
+    stroke: #3b82f6; /* blue-500 */
+}
+
+.dark .ql-snow .ql-active .ql-fill {
+    fill: #3b82f6;
+}
+
+.dark .ql-snow .ql-active {
+    color: #3b82f6;
+}
+
+/* Code block inside editor */
+.dark .ql-editor pre.ql-syntax {
+    background-color: #18181b;
+    color: #e4e4e7;
+    border: 1px solid #3f3f46;
+}
+
+/* Tooltip (link editor) */
+.dark .ql-snow .ql-tooltip {
+    background-color: #27272a;
+    border-color: #3f3f46;
+    color: #fafafa;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+}
+
+.dark .ql-snow .ql-tooltip input[type="text"] {
+    background-color: #18181b;
+    border-color: #3f3f46;
+    color: #fafafa;
+}
+
+/*--------------------------------------------------------------
+# Dashboard Specific Custom Styles
+--------------------------------------------------------------*/
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    /* zinc-300 */
+    border-radius: 10px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #3f3f46;
+    /* zinc-700 */
+}
+
+/* Hide ApexCharts x-axis date labels */
+.apexcharts-xaxis-label,
+.apexcharts-xaxis text {
+    display: none !important;
+}
+
+/* ApexCharts Tooltip Dark Mode Fixes */
+.apexcharts-tooltip {
+    background: #ffffff !important;
+    border: 1px solid #e4e4e7 !important; /* zinc-200 */
+    box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    color: #18181b !important; /* zinc-900 */
+    border-radius: 0.75rem !important; /* rounded-xl */
+    transition: opacity 0.1s ease !important; /* Eliminates the severe top/left positional stuttering lag */
+    pointer-events: none !important; /* Prevents tooltip from blocking cursor intersection */
+}
+.apexcharts-tooltip-title {
+    background: #f4f4f5 !important; /* zinc-100 */
+    border-bottom: 1px solid #e4e4e7 !important;
+    font-family: inherit !important;
+    font-weight: 700 !important;
+    padding: 8px 12px !important;
+}
+.apexcharts-tooltip-text-y-label,
+.apexcharts-tooltip-text-y-value {
+    color: #18181b !important; /* zinc-900 */
+}
+
+/* Dark Mode Target */
+.dark .apexcharts-tooltip {
+    background: #09090b !important; /* zinc-950 */
+    border-color: #27272a !important; /* zinc-800 */
+    color: #fafafa !important; /* zinc-50 */
+}
+.dark .apexcharts-tooltip-title {
+    background: #18181b !important; /* zinc-900 */
+    border-bottom-color: #27272a !important;
+    color: #fafafa !important;
+}
+.dark .apexcharts-tooltip-text-y-label,
+.dark .apexcharts-tooltip-text-y-value {
+    color: #fafafa !important;
+}
+.dark .apexcharts-tooltip-marker {
+    opacity: 0.9;
+}
+
+/*--------------------------------------------------------------
+# Dynamic Background: Blur Performance Control
+# When dynamicBg is OFF, all backdrop-filter effects are removed
+# globally to eliminate GPU compositing overhead.
+#
+# Excluded: modals (.fixed) — modals retain backdrop-blur-sm
+# regardless of dynamicBg to maintain overlay readability.
+--------------------------------------------------------------*/
+.no-blur *:not(.fixed *) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/*--------------------------------------------------------------
+# Chatbot Prose Styling
+--------------------------------------------------------------*/
+.chat-prose a {
+    color: #2563eb !important; /* blue-600 */
+    text-decoration: underline !important;
+    font-weight: 600;
+}
+
+.dark .chat-prose a {
+    color: #60a5fa !important; /* blue-400 */
+}
+
+.chat-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.chat-prose th,
+.chat-prose td {
+    border: 1px solid #e4e4e7 !important; /* zinc-200 */
+    padding: 0.5rem 0.75rem !important;
+    text-align: left;
+}
+
+.dark .chat-prose th,
+.dark .chat-prose td {
+    border: 1px solid #27272a !important; /* zinc-800 */
+}
+
+.chat-prose th {
+    background-color: #f4f4f5 !important; /* zinc-100 */
+    color: #18181b !important; /* zinc-900 */
+    font-weight: 600;
+}
+
+.dark .chat-prose th {
+    background-color: #18181b !important; /* zinc-900 */
+    color: #fafafa !important; /* zinc-50 */
+}
+
+.chat-prose blockquote {
+    border-left: 4px solid #dc2626 !important; /* red-600 theme border */
+    background-color: rgba(
+        244,
+        244,
+        245,
+        0.5
+    ) !important; /* zinc-100 half-transparent */
+    padding: 0.75rem 1rem !important;
+    margin: 1rem 0 !important;
+    border-radius: 0 0.5rem 0.5rem 0;
+    color: #52525b !important; /* zinc-600 */
+    font-style: italic;
+}
+
+.dark .chat-prose blockquote {
+    background-color: rgba(
+        39,
+        39,
+        42,
+        0.5
+    ) !important; /* zinc-800 half-transparent */
+    color: #d4d4d8 !important; /* zinc-300 */
+}
+
+/*--------------------------------------------------------------
+# Navbar Breadcrumb Animation
+--------------------------------------------------------------*/
+@keyframes navBreadcrumbFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-fade-in {
+    animation: navBreadcrumbFadeIn 0.25s ease-out forwards;
+}
+
+/*--------------------------------------------------------------
+# Report FAB Item Transition
+--------------------------------------------------------------*/
+.report-fab-item {
+    transition:
+        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.3s ease,
+        background-color 0.3s,
+        border-color 0.3s,
+        box-shadow 0.3s !important;
+}
+
+/*--------------------------------------------------------------
+# Livewire App Layout Height Utility
+--------------------------------------------------------------*/
+.livewire-app-container {
+    height: calc(100vh - 12rem);
+}
+@media (min-width: 768px) {
+    .livewire-app-container {
+        height: calc(100vh - 9rem);
+    }
+}
+
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    border-color: var(--color-zinc-200, currentColor);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

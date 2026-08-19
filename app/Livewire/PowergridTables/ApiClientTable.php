@@ -102,10 +102,32 @@ final class ApiClientTable extends PowerGridComponent
 
     public function actionsFromView(ApiClient $row)
     {
-        return view('components.table-component.action-edit', [
-            'row'       => $row,
-            'editRoute' => 'api-clients.edit',
+        return view('components.table-component.action-api-client', [
+            'row' => $row,
         ])->render();
+    }
+
+    public function deleteClient(int $id): void
+    {
+        $client = ApiClient::find($id);
+        if (! $client) {
+            $this->dispatch('swal', [
+                'icon'  => 'error',
+                'title' => 'Gagal!',
+                'text'  => 'Data API client tidak ditemukan.',
+            ]);
+
+            return;
+        }
+
+        $name = $client->name;
+        $client->delete();
+
+        $this->dispatch('swal', [
+            'icon'  => 'success',
+            'title' => 'Terhapus!',
+            'text'  => "API Client '{$name}' berhasil dihapus.",
+        ]);
     }
 
     public function queryString(): array

@@ -5,6 +5,7 @@ namespace App\Livewire\Handler\ApiClients;
 use App\Livewire\Concerns\HandlesErrors;
 use App\Models\ApiClient;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Edit extends Component
@@ -35,6 +36,12 @@ class Edit extends Component
     {
         $this->api_key     = ApiClient::generateKey();
         $this->key_changed = true;
+
+        $this->dispatch('swal', [
+            'icon'  => 'info',
+            'title' => 'Key Baru Di-generate',
+            'text'  => 'Key baru telah dibuat. Klik "Simpan Perubahan" di bawah untuk mengaktifkannya di database.',
+        ]);
     }
 
     protected function rules(): array
@@ -71,7 +78,7 @@ class Edit extends Component
             $this->redirect(route('api-clients.index'), navigate: true);
         }, 'Gagal memperbarui API client', [
             'client_id' => $this->client->id,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
         ]);
     }
 
@@ -85,7 +92,7 @@ class Edit extends Component
             $this->redirect(route('api-clients.index'), navigate: true);
         }, 'Gagal menghapus API client', [
             'client_id' => $this->client->id,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
         ]);
     }
 

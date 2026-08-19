@@ -33,17 +33,39 @@
                         <span class="text-xs font-bold uppercase tracking-wider text-red-700 dark:text-red-400">Active API Key (X-API-KEY)</span>
                         <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Kunci akses aktif untuk request HTTP.</p>
                     </div>
-                    <button type="button" wire:click="regenerateKey" wire:confirm="Apakah Anda yakin ingin me-regenerate API key? Client aplikasi harus diperbarui dengan key baru!" class="text-xs font-semibold text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
+                    <button type="button"
+                        x-data
+                        @click="Swal.fire({
+                            title: 'Regenerate API Key?',
+                            text: 'API Key baru akan dibuat. Klien eksternal harus diperbarui dengan key baru setelah disimpan.',
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonColor: '#dc2626',
+                            cancelButtonColor: '#6b7280',
+                            confirmButtonText: 'Ya, Buat Key Baru',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $wire.regenerateKey();
+                            }
+                        })"
+                        class="text-xs font-semibold text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
                         🔄 Regenerate Key Baru
                     </button>
                 </div>
-                <div class="mt-2 flex items-center gap-2">
-                    <input type="text" readonly value="{{ $api_key }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                <div class="mt-2 flex items-center gap-2" x-data="{ copied: false }">
+                    <input type="text" readonly wire:model="api_key" wire:key="api-key-input-{{ $client->id }}" value="{{ $api_key }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                    <button type="button"
+                        @click="navigator.clipboard.writeText($wire.api_key); copied = true; setTimeout(() => copied = false, 2000)"
+                        class="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700">
+                        <span x-show="!copied">📋 Salin</span>
+                        <span x-show="copied" class="text-green-600 dark:text-green-400">✓ Tersalin</span>
+                    </button>
                 </div>
                 @if ($key_changed)
                     <div class="mt-2 flex items-center gap-1.5 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 dark:border-amber-700/50 dark:bg-amber-950/30">
                         <span class="text-amber-600 dark:text-amber-400">⚠️</span>
-                        <p class="text-[11px] font-semibold text-amber-700 dark:text-amber-400">Key baru ini <strong>belum tersimpan</strong>. Klik "Simpan Perubahan" untuk mengaktifkan key baru ini.</p>
+                        <p class="text-[11px] font-semibold text-amber-700 dark:text-amber-400">Key baru berhasil di-generate tapi <strong>belum tersimpan</strong> di database. Klik <strong>"Simpan Perubahan"</strong> di bawah untuk mengaktifkannya.</p>
                     </div>
                 @endif
             </div>
@@ -75,9 +97,29 @@
             </div>
 
             <div class="flex items-center justify-between border-t border-zinc-200/60 pt-4 dark:border-zinc-800">
-                <button type="button" wire:click="deleteClient" wire:confirm="Hapus API Client ini secara permanen?" class="text-xs font-bold text-red-600 hover:text-red-700 dark:text-red-400">
-                    🗑️ Hapus Client Ini
-                </button>
+                @can('api-clients-delete')
+                    <button type="button"
+                        x-data
+                        @click="Swal.fire({
+                            title: 'Hapus API Client?',
+                            text: 'Data client {{ addslashes($client->name) }} beserta kunci aksesnya akan dihapus secara permanen!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#dc2626',
+                            cancelButtonColor: '#6b7280',
+                            confirmButtonText: 'Ya, Hapus!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $wire.deleteClient();
+                            }
+                        })"
+                        class="text-xs font-bold text-red-600 hover:text-red-700 dark:text-red-400">
+                        🗑️ Hapus Client Ini
+                    </button>
+                @else
+                    <div></div>
+                @endcan
 
                 <div class="flex gap-3">
                     <x-button.secondary href="{{ route('api-clients.index') }}" wire:navigate>

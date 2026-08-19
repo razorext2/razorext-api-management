@@ -40,11 +40,27 @@
                 <div class="mt-3 space-y-2">
                     <div>
                         <p class="mb-1 text-[10px] font-bold uppercase tracking-wider text-zinc-400">API Key (X-API-KEY)</p>
-                        <input type="text" readonly value="{{ $generated_key }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                        <div class="flex items-center gap-2" x-data="{ copied: false }">
+                            <input type="text" readonly wire:model="generated_key" value="{{ $generated_key }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                            <button type="button"
+                                @click="navigator.clipboard.writeText($wire.generated_key); copied = true; setTimeout(() => copied = false, 2000)"
+                                class="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700">
+                                <span x-show="!copied">📋 Salin</span>
+                                <span x-show="copied" class="text-green-600 dark:text-green-400">✓</span>
+                            </button>
+                        </div>
                     </div>
                     <div>
                         <p class="mb-1 text-[10px] font-bold uppercase tracking-wider text-zinc-400">Secret Key (untuk validasi signature, opsional)</p>
-                        <input type="text" readonly value="{{ $generated_secret }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                        <div class="flex items-center gap-2" x-data="{ copied: false }">
+                            <input type="text" readonly wire:model="generated_secret" value="{{ $generated_secret }}" class="w-full rounded-lg border-zinc-300 bg-white font-mono text-sm text-zinc-800 select-all dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200" />
+                            <button type="button"
+                                @click="navigator.clipboard.writeText($wire.generated_secret); copied = true; setTimeout(() => copied = false, 2000)"
+                                class="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700">
+                                <span x-show="!copied">📋 Salin</span>
+                                <span x-show="copied" class="text-green-600 dark:text-green-400">✓</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

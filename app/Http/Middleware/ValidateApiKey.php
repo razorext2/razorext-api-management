@@ -25,25 +25,55 @@ class ValidateApiKey
             ?? $request->bearerToken();
 
         if (empty($apiKey)) {
-            return $this->errorResponse('API key is missing. Please provide X-API-KEY header.', 401, $startTime, $request);
+            return $this->errorResponse(
+                'API key is missing. Please provide X-API-KEY header.',
+                'API_KEY_MISSING',
+                'Header X-API-KEY tidak ditemukan. Harap sertakan API Key pada header request.',
+                401,
+                $startTime,
+                $request
+            );
         }
 
         // 2. Lookup Client
         $client = ApiClient::where('api_key', $apiKey)->first();
 
         if (! $client) {
-            return $this->errorResponse('Invalid API key provided.', 401, $startTime, $request);
+            return $this->errorResponse(
+                'Invalid API key provided.',
+                'API_KEY_INVALID',
+                'API Key tidak valid atau tidak terdaftar. Periksa pengaturan API Key di dashboard API Management.',
+                401,
+                $startTime,
+                $request
+            );
         }
 
         if (! $client->is_active) {
-            return $this->errorResponse('API client account is deactivated. Contact administrator.', 403, $startTime, $request, $client->id);
+            return $this->errorResponse(
+                'API client account is deactivated. Contact administrator.',
+                'API_KEY_DEACTIVATED',
+                'Akun API Client ini sedang dinonaktifkan oleh administrator.',
+                403,
+                $startTime,
+                $request,
+                $client->id
+            );
         }
 
         // 3. IP Whitelist check (if configured)
         if (! empty($client->allowed_ips)) {
             $clientIp = $request->ip();
             if (! in_array($clientIp, $client->allowed_ips, true)) {
-                return $this->errorResponse("IP address [{$clientIp}] is not authorized for this API key.", 403, $startTime, $request, $client->id);
+                return $this->errorResponse(
+                    "IP address [{$clientIp}] is not authorized for this API key.",
+                    'IP_NOT_AUTHORIZED',
+                    'Alamat IP klien tidak terdaftar dalam daftar whitelist API Client ini.',
+                    403,
+                    $startTime,
+                    $request,
+                    $client->id
+                );
             }
         }
 
@@ -54,7 +84,15 @@ class ValidateApiKey
         if (RateLimiter::tooManyAttempts($rateLimitKey, $maxAttempts)) {
             $seconds = RateLimiter::availableIn($rateLimitKey);
 
-            return $this->errorResponse("Rate limit exceeded. Try again in {$seconds} seconds.", 429, $startTime, $request, $client->id);
+            return $this->errorResponse(
+                "Rate limit exceeded. Try again in {$seconds} seconds.",
+                'RATE_LIMIT_EXCEEDED',
+                "Batas rate limit ({$maxAttempts} req/menit) terlampaui. Coba lagi dalam {$seconds} detik.",
+                429,
+                $startTime,
+                $request,
+                $client->id
+            );
         }
 
         RateLimiter::hit($rateLimitKey, 60);
@@ -86,7 +124,7 @@ class ValidateApiKey
         return $response;
     }
 
-    protected function errorResponse(string $message, int $statusCode, float $startTime, Request $request, ?int $clientId = null): JsonResponse
+    protected function errorResponse(string $message, string $errorCode, string $hint, int $statusCode, float $startTime, Request $request, ?int $clientId = null): JsonResponse
     {
         $executionTime = round((microtime(true) - $startTime) * 1000, 2);
 
@@ -100,7 +138,9 @@ class ValidateApiKey
         return response()->json([
             'success' => false,
             'status' => $statusCode,
+            'error_code' => $errorCode,
             'message' => $message,
+            'hint' => $hint,
             'execution_time_ms' => $executionTime,
         ], $statusCode);
     }

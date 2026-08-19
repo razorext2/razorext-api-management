@@ -12,6 +12,48 @@ return [
         'navigate' => true,
     ],
 
+    // ─── API Gateway & Services ────────────────────────────────────────────────
+    [
+        'type' => 'header',
+        'label' => 'API Services',
+    ],
+
+    [
+        'type' => 'group',
+        'label' => 'API Gateway',
+        'icon' => 'globe',
+        'guard' => ['any_permission', ['api-clients-list']],
+        'submenu' => [
+            [
+                'label' => 'API Clients',
+                'mobile_label' => 'Manajemen API Clients',
+                'route' => 'api-clients.index',
+                'check' => ['api-clients.*'],
+                'icon' => 'code',
+                'permission' => 'api-clients-list',
+                'navigate' => true,
+            ],
+        ],
+    ],
+
+    [
+        'type' => 'group',
+        'label' => 'Interactive Sandbox',
+        'icon' => 'cpu',
+        'guard' => ['any_permission', ['sandbox-access']],
+        'submenu' => [
+            [
+                'label' => 'Apriori Sandbox',
+                'mobile_label' => 'Apriori Sandbox',
+                'route' => 'sandbox.apriori',
+                'check' => ['sandbox.apriori'],
+                'icon' => 'chart',
+                'permission' => 'sandbox-access',
+                'navigate' => true,
+            ],
+        ],
+    ],
+
     // ─── Settings ─────────────────────────────────────────────────────────────
     [
         'type' => 'header',

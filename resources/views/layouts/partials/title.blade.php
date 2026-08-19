@@ -8,6 +8,8 @@
         'roles.*' => 'Roles',
         'permissions.*' => 'Permissions',
         'notifications.*' => 'Pusat Notifikasi',
+        'api-clients.*' => 'API Clients & Gateway',
+        'sandbox.*' => 'Interactive Sandbox',
         'settings.*' => 'Pengaturan Website',
     ];
 

@@ -69,6 +69,14 @@ Route::middleware(['auth'])->group(function () {
         Route::livewire('users/create', App\Livewire\Handler\User\Create::class)->name('users.create')->middleware('permission:users-create');
         Route::livewire('users/{user}/edit', App\Livewire\Handler\User\Edit::class)->name('users.edit')->middleware('permission:users-edit');
 
+        // API Clients Management
+        Route::livewire('api-clients', App\Livewire\Handler\ApiClients\Index::class)->name('api-clients.index')->middleware('permission:api-clients-list');
+        Route::livewire('api-clients/create', App\Livewire\Handler\ApiClients\Create::class)->name('api-clients.create')->middleware('permission:api-clients-create');
+        Route::livewire('api-clients/{client}/edit', App\Livewire\Handler\ApiClients\Edit::class)->name('api-clients.edit')->middleware('permission:api-clients-edit');
+
+        // Interactive Sandbox
+        Route::livewire('sandbox/apriori', App\Livewire\Handler\Sandbox\AprioriSandbox::class)->name('sandbox.apriori')->middleware('permission:sandbox-access');
+
         // Activity Logs
         Route::livewire('log', LogTable::class)->name('log.index')->middleware('permission:log-list');
 

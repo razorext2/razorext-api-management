@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ApiClient;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +31,11 @@ class DatabaseSeeder extends Seeder
             'permissions-create',
             'permissions-edit',
             'permissions-delete',
+            'api-clients-list',
+            'api-clients-create',
+            'api-clients-edit',
+            'api-clients-delete',
+            'sandbox-access',
             'log-list',
             'settings-manage',
         ];
@@ -51,6 +57,19 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole($role);
         $user->syncPermissions(Permission::all());
+
+        // Default Demo API Client for Testing
+        ApiClient::updateOrCreate(
+            ['slug' => 'apriori-web-app'],
+            [
+                'name' => 'Aplikasi Web Apriori Client',
+                'api_key' => 'apm_live_apriori_demo_key_99887766',
+                'secret_key' => 'sec_apriori_demo_secret_token_123456789',
+                'description' => 'Default demo client for Apriori data mining web app',
+                'rate_limit_per_minute' => 120,
+                'is_active' => true,
+            ]
+        );
 
         $this->call(SettingSeeder::class);
     }

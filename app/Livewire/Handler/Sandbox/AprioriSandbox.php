@@ -12,9 +12,13 @@ class AprioriSandbox extends Component
     use HandlesErrors;
 
     public string $transactions_text = '';
+
     public float $min_support = 0.3;
+
     public float $min_confidence = 0.6;
+
     public ?array $result = null;
+
     public string $selected_preset = 'retail';
 
     public function mount(): void
@@ -58,6 +62,7 @@ class AprioriSandbox extends Component
 
             if (empty($transactions)) {
                 $this->result = null;
+
                 return;
             }
 

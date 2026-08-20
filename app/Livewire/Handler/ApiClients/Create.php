@@ -13,11 +13,17 @@ class Create extends Component
     use HandlesErrors;
 
     public string $name = '';
+
     public ?string $description = null;
+
     public int $rate_limit_per_minute = 60;
+
     public bool $is_active = true;
+
     public ?string $allowed_ips_text = null;
+
     public string $generated_key = '';
+
     public string $generated_secret = '';
 
     public function mount(): void
@@ -28,7 +34,7 @@ class Create extends Component
 
     public function generateNewKey(): void
     {
-        $this->generated_key    = ApiClient::generateKey();
+        $this->generated_key = ApiClient::generateKey();
         $this->generated_secret = ApiClient::generateSecret();
     }
 

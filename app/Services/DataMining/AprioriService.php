@@ -7,9 +7,9 @@ class AprioriService
     /**
      * Menjalankan perhitungan algoritma Apriori secara lengkap.
      *
-     * @param array<int, array<int, string>> $transactions
-     * @param float $minSupport Nilai min support (antara 0.0 - 1.0)
-     * @param float $minConfidence Nilai min confidence (antara 0.0 - 1.0)
+     * @param  array<int, array<int, string>>  $transactions
+     * @param  float  $minSupport  Nilai min support (antara 0.0 - 1.0)
+     * @param  float  $minConfidence  Nilai min confidence (antara 0.0 - 1.0)
      * @return array<string, mixed>
      */
     public function calculate(array $transactions, float $minSupport = 0.2, float $minConfidence = 0.6): array
@@ -69,7 +69,7 @@ class AprioriService
                 'item' => $item,
                 'count' => $count,
                 'support' => round($count / $totalTransactions, 4),
-                'support_percent' => round(($count / $totalTransactions) * 100, 2) . '%',
+                'support_percent' => round(($count / $totalTransactions) * 100, 2).'%',
                 'is_frequent' => $count >= $minSupportCount,
             ];
         }
@@ -87,7 +87,7 @@ class AprioriService
                     'items' => $itemset,
                     'count' => $count,
                     'support' => round($count / $totalTransactions, 4),
-                    'support_percent' => round(($count / $totalTransactions) * 100, 2) . '%',
+                    'support_percent' => round(($count / $totalTransactions) * 100, 2).'%',
                 ];
             }
         }
@@ -132,7 +132,7 @@ class AprioriService
                         'items' => $cand,
                         'count' => $count,
                         'support' => round($count / $totalTransactions, 4),
-                        'support_percent' => round(($count / $totalTransactions) * 100, 2) . '%',
+                        'support_percent' => round(($count / $totalTransactions) * 100, 2).'%',
                     ];
                 }
             }
@@ -181,12 +181,12 @@ class AprioriService
                     $rules[] = [
                         'antecedent' => $antecedent,
                         'consequent' => $consequent,
-                        'rule_text' => 'Jika membeli [' . implode(', ', $antecedent) . '] maka membeli [' . implode(', ', $consequent) . ']',
+                        'rule_text' => 'Jika membeli ['.implode(', ', $antecedent).'] maka membeli ['.implode(', ', $consequent).']',
                         'count' => $itemsetCount,
                         'support' => round($itemsetSupport, 4),
-                        'support_percent' => round($itemsetSupport * 100, 2) . '%',
+                        'support_percent' => round($itemsetSupport * 100, 2).'%',
                         'confidence' => round($confidence, 4),
-                        'confidence_percent' => round($confidence * 100, 2) . '%',
+                        'confidence_percent' => round($confidence * 100, 2).'%',
                         'lift_ratio' => $lift,
                         'is_valid_lift' => $lift > 1.0,
                     ];
@@ -199,6 +199,7 @@ class AprioriService
             if ($b['confidence'] === $a['confidence']) {
                 return $b['lift_ratio'] <=> $a['lift_ratio'];
             }
+
             return $b['confidence'] <=> $a['confidence'];
         });
 
@@ -267,6 +268,7 @@ class AprioriService
     protected function itemsetKey(array $itemset): string
     {
         sort($itemset);
+
         return implode('|||', $itemset);
     }
 }

@@ -1,6 +1,9 @@
 {{-- Action buttons for ApiClient PowerGrid table --}}
-<div class="flex items-center justify-center gap-2">
-    <x-button.primary href="{{ route('api-clients.edit', $row->id) }}" wire:navigate class="text-xs py-1.5 px-3">
+<div class="flex items-center justify-center gap-1.5">
+    <x-button.secondary href="{{ route('api-clients.show', $row->id) }}" wire:navigate class="text-xs py-1.5 px-2.5">
+        Detail
+    </x-button.secondary>
+    <x-button.primary href="{{ route('api-clients.edit', $row->id) }}" wire:navigate class="text-xs py-1.5 px-2.5">
         Edit
     </x-button.primary>
     @can('api-clients-delete')

@@ -5,6 +5,8 @@
 namespace App\Livewire\Utils;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class Breadcrumb extends Component
@@ -26,8 +28,8 @@ class Breadcrumb extends Component
 
             $url = null;
             try {
-                $subRequest = \Illuminate\Http\Request::create($path, 'GET');
-                $matchedRoute = \Illuminate\Support\Facades\Route::getRoutes()->match($subRequest);
+                $subRequest = Request::create($path, 'GET');
+                $matchedRoute = Route::getRoutes()->match($subRequest);
                 if ($matchedRoute && ! ($matchedRoute->isFallback ?? false)) {
                     $url = url($path);
                 }

@@ -42,11 +42,11 @@ class ApiClient extends Model
 
     public static function generateKey(string $prefix = 'apm_live_'): string
     {
-        return $prefix . Str::random(40);
+        return $prefix.Str::random(40);
     }
 
     public static function generateSecret(): string
     {
-        return 'sec_' . Str::random(48);
+        return 'sec_'.Str::random(48);
     }
 }

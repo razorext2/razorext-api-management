@@ -78,7 +78,7 @@ class ValidateApiKey
         }
 
         // 4. Rate Limiting per Client
-        $rateLimitKey = 'api-client:' . $client->id;
+        $rateLimitKey = 'api-client:'.$client->id;
         $maxAttempts = $client->rate_limit_per_minute ?: 60;
 
         if (RateLimiter::tooManyAttempts($rateLimitKey, $maxAttempts)) {
@@ -155,6 +155,7 @@ class ValidateApiKey
                 'status_code' => $statusCode,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
+                'request_headers' => $request->headers->all(),
                 'execution_time_ms' => $executionTime,
                 'error_message' => $errorMessage,
                 'created_at' => now(),

@@ -13,12 +13,19 @@ class Edit extends Component
     use HandlesErrors;
 
     public ApiClient $client;
+
     public string $name = '';
+
     public ?string $description = null;
+
     public int $rate_limit_per_minute = 60;
+
     public bool $is_active = true;
+
     public ?string $allowed_ips_text = null;
+
     public string $api_key = '';
+
     public bool $key_changed = false;
 
     public function mount(ApiClient $client): void
@@ -34,13 +41,13 @@ class Edit extends Component
 
     public function regenerateKey(): void
     {
-        $this->api_key     = ApiClient::generateKey();
+        $this->api_key = ApiClient::generateKey();
         $this->key_changed = true;
 
         $this->dispatch('swal', [
-            'icon'  => 'info',
+            'icon' => 'info',
             'title' => 'Key Baru Di-generate',
-            'text'  => 'Key baru telah dibuat. Klik "Simpan Perubahan" di bawah untuk mengaktifkannya di database.',
+            'text' => 'Key baru telah dibuat. Klik "Simpan Perubahan" di bawah untuk mengaktifkannya di database.',
         ]);
     }
 

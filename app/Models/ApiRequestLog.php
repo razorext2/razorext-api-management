@@ -21,6 +21,7 @@ class ApiRequestLog extends Model
         'status_code',
         'ip_address',
         'user_agent',
+        'request_headers',
         'execution_time_ms',
         'error_message',
         'created_at',
@@ -32,6 +33,7 @@ class ApiRequestLog extends Model
             'created_at' => 'datetime',
             'status_code' => 'integer',
             'execution_time_ms' => 'float',
+            'request_headers' => 'array',
         ];
     }
 

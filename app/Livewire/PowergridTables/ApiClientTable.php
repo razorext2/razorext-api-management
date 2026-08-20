@@ -43,8 +43,8 @@ final class ApiClientTable extends PowerGridComponent
             ->add('id')
             ->add('name')
             ->add('slug')
-            ->add('api_key', fn ($row) => '<code class="px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-red-600 dark:text-red-400 font-mono text-xs rounded border border-zinc-200 dark:border-zinc-700 select-all">' . e($row->api_key) . '</code>')
-            ->add('rate_limit_per_minute', fn ($row) => '<span class="font-semibold">' . $row->rate_limit_per_minute . '</span> req/min')
+            ->add('api_key', fn ($row) => '<code class="px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-red-600 dark:text-red-400 font-mono text-xs rounded border border-zinc-200 dark:border-zinc-700 select-all">'.e($row->api_key).'</code>')
+            ->add('rate_limit_per_minute', fn ($row) => '<span class="font-semibold">'.$row->rate_limit_per_minute.'</span> req/min')
             ->add('is_active')
             ->add('is_active_formatted', fn ($row) => view('components.table-component.badge-status', [
                 'active' => (bool) $row->is_active,
@@ -112,9 +112,9 @@ final class ApiClientTable extends PowerGridComponent
         $client = ApiClient::find($id);
         if (! $client) {
             $this->dispatch('swal', [
-                'icon'  => 'error',
+                'icon' => 'error',
                 'title' => 'Gagal!',
-                'text'  => 'Data API client tidak ditemukan.',
+                'text' => 'Data API client tidak ditemukan.',
             ]);
 
             return;
@@ -124,9 +124,9 @@ final class ApiClientTable extends PowerGridComponent
         $client->delete();
 
         $this->dispatch('swal', [
-            'icon'  => 'success',
+            'icon' => 'success',
             'title' => 'Terhapus!',
-            'text'  => "API Client '{$name}' berhasil dihapus.",
+            'text' => "API Client '{$name}' berhasil dihapus.",
         ]);
     }
 

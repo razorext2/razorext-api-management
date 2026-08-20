@@ -60,7 +60,7 @@
 
                     <div class="space-y-2">
                         <x-input.basic wire:model="email" id="email" name="email" type="email"
-                            placeholder="user@indodacin.com">
+                            placeholder="user@razorext.my.id">
                             Alamat Email
                         </x-input.basic>
                         @error('email')

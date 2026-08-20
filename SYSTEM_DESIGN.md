@@ -1,5 +1,5 @@
 # System Design & Architecture Guide
-## Dacin Dashboard — Indodacin Attendance System (`dacin-ai-v2`)
+## RazorAPI — API Management Platform & Gateway System
 
 > Dokumen ini adalah panduan teknis definitif untuk memahami, mengembangkan, dan mem-fork project ini.
 > Baca seluruh dokumen sebelum melakukan perubahan arsitektural.
@@ -30,7 +30,7 @@
 
 ## 1. Gambaran Sistem
 
-Dacin Dashboard adalah **internal web application** berbasis **Laravel + Livewire SPA** untuk manajemen sumber daya manusia (absensi, pengumuman, user management). Aplikasi ini didesain sebagai **single-page application** menggunakan Livewire 4 wire:navigate tanpa API layer terpisah — semua operasi CRUD dilakukan melalui Livewire full-page components.
+RazorAPI adalah **API Management Platform** berbasis **Laravel + Livewire SPA** untuk pengelolaan gateway API, manajemen client & API keys, interactive sandbox, analitik data, dan user/role access control. Aplikasi ini didesain sebagai **single-page application** menggunakan Livewire 4 wire:navigate.
 
 ```
 +-----------------------------------------------------+
@@ -671,7 +671,7 @@ Livewire.on("loadingClose", () => {
 ### Token Custom Tailwind
 
 ```
-primary        = red-600       (brand Indodacin -- HANYA dekorasi/logo)
+primary        = red-600       (brand RazorAPI -- HANYA dekorasi/logo)
 dark-primary   = #18181b       (dark mode page background)
 dark-secondary = #242427       (dark mode elevated background)
 glass-light / glass-dark               (glassmorphism bg)

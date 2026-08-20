@@ -85,20 +85,20 @@
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <x-input.basic wire:model="site_name" label="Nama Utama Website (App Name)"
-                            placeholder="e.g. Indodacin" />
+                            placeholder="e.g. RazorAPI" />
                         <x-input.basic wire:model="site_title" label="Judul Tab Browser (Default Meta Title)"
-                            placeholder="e.g. Dashboard System" />
+                            placeholder="e.g. API Gateway & Management" />
                         <x-input.basic wire:model="sidebar_title" label="Judul pada Sidebar Navigation"
-                            placeholder="e.g. Attendance" />
+                            placeholder="e.g. RazorAPI" />
                         <x-input.basic wire:model="auth_subtitle" label="Tagline Animasi pada Halaman Login"
-                            placeholder="e.g. Presisi Utama" />
+                            placeholder="e.g. API Platform" />
                         <x-input.basic wire:model="app_version" label="Versi Aplikasi / Sistem"
                             placeholder="e.g. v2.4.0" />
                     </div>
 
                     <x-input.textarea wire:model="auth_description" label="Deskripsi pada Halaman Login / Auth"
                         rows="3"
-                        placeholder="Sistem informasi terpadu untuk koordinasi, pelaporan, dan manajemen data operasional secara langsung." />
+                        placeholder="Platform manajemen API modern untuk pengelolaan gateway, autentikasi client, dan analitik performa." />
                 </div>
             </div>
 
@@ -165,15 +165,18 @@
                                     x-transition:leave-end="opacity-0 scale-95"
                                     class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2.5 rounded-xl bg-white/95 p-4 backdrop-blur-md dark:bg-zinc-950/95">
                                     <div class="flex items-center gap-1.5">
-                                        <x-icons.clockwise class="h-4 w-4 animate-spin text-red-600 dark:text-red-500" />
+                                        <x-icons.clockwise
+                                            class="h-4 w-4 animate-spin text-red-600 dark:text-red-500" />
                                         <span class="text-xs font-bold text-zinc-900 dark:text-white"
                                             x-text="logoProgress + '%'"></span>
                                     </div>
-                                    <div class="h-2 w-4/5 overflow-hidden rounded-full bg-zinc-200/80 p-0.5 dark:bg-zinc-800">
-                                        <div class="h-full rounded-full bg-linear-to-r from-red-500 to-rose-600 transition-all duration-300 ease-out shadow-sm"
+                                    <div
+                                        class="h-2 w-4/5 overflow-hidden rounded-full bg-zinc-200/80 p-0.5 dark:bg-zinc-800">
+                                        <div class="bg-linear-to-r h-full rounded-full from-red-500 to-rose-600 shadow-sm transition-all duration-300 ease-out"
                                             :style="'width:' + logoProgress + '%'"></div>
                                     </div>
-                                    <p class="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Mengunggah file...</p>
+                                    <p class="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Mengunggah
+                                        file...</p>
                                 </div>
                             </div>
 
@@ -187,7 +190,8 @@
                                     <span
                                         x-text="logoUploading ? (logoProgress + '% mengunggah...') : (logoName ?? 'Pilih File Logo')"></span>
                                 </label>
-                                <input id="upload-logo" type="file" wire:model="new_logo" accept=".png,.jpg,.jpeg,.svg,.webp,image/png,image/jpeg,image/svg+xml,image/webp"
+                                <input id="upload-logo" type="file" wire:model="new_logo"
+                                    accept=".png,.jpg,.jpeg,.svg,.webp,image/png,image/jpeg,image/svg+xml,image/webp"
                                     class="sr-only" @change="logoName = $event.target.files[0]?.name ?? null" />
                                 <x-input.error :messages="$errors->get('new_logo')" />
                             </div>
@@ -239,15 +243,18 @@
                                     x-transition:leave-end="opacity-0 scale-95"
                                     class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2.5 rounded-xl bg-white/95 p-4 backdrop-blur-md dark:bg-zinc-950/95">
                                     <div class="flex items-center gap-1.5">
-                                        <x-icons.clockwise class="h-4 w-4 animate-spin text-red-600 dark:text-red-500" />
+                                        <x-icons.clockwise
+                                            class="h-4 w-4 animate-spin text-red-600 dark:text-red-500" />
                                         <span class="text-xs font-bold text-zinc-900 dark:text-white"
                                             x-text="faviconProgress + '%'"></span>
                                     </div>
-                                    <div class="h-2 w-4/5 overflow-hidden rounded-full bg-zinc-200/80 p-0.5 dark:bg-zinc-800">
-                                        <div class="h-full rounded-full bg-linear-to-r from-red-500 to-rose-600 transition-all duration-300 ease-out shadow-sm"
+                                    <div
+                                        class="h-2 w-4/5 overflow-hidden rounded-full bg-zinc-200/80 p-0.5 dark:bg-zinc-800">
+                                        <div class="bg-linear-to-r h-full rounded-full from-red-500 to-rose-600 shadow-sm transition-all duration-300 ease-out"
                                             :style="'width:' + faviconProgress + '%'"></div>
                                     </div>
-                                    <p class="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Mengunggah file...</p>
+                                    <p class="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Mengunggah
+                                        file...</p>
                                 </div>
                             </div>
 
@@ -263,8 +270,8 @@
                                         x-text="faviconUploading ? (faviconProgress + '% mengunggah...') : (faviconName ?? 'Pilih File Favicon')"></span>
                                 </label>
                                 <input id="upload-favicon" type="file" wire:model="new_favicon"
-                                    accept=".ico,.png,.jpg,.jpeg,.svg,image/x-icon,image/png,image/jpeg,image/svg+xml" class="sr-only"
-                                    @change="faviconName = $event.target.files[0]?.name ?? null" />
+                                    accept=".ico,.png,.jpg,.jpeg,.svg,image/x-icon,image/png,image/jpeg,image/svg+xml"
+                                    class="sr-only" @change="faviconName = $event.target.files[0]?.name ?? null" />
                                 <x-input.error :messages="$errors->get('new_favicon')" />
                             </div>
                         </div>
@@ -314,15 +321,18 @@
                                     x-transition:leave-end="opacity-0 scale-95"
                                     class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2.5 rounded-xl bg-white/95 p-4 backdrop-blur-md dark:bg-zinc-950/95">
                                     <div class="flex items-center gap-1.5">
-                                        <x-icons.clockwise class="h-4 w-4 animate-spin text-red-600 dark:text-red-500" />
+                                        <x-icons.clockwise
+                                            class="h-4 w-4 animate-spin text-red-600 dark:text-red-500" />
                                         <span class="text-xs font-bold text-zinc-900 dark:text-white"
                                             x-text="touchProgress + '%'"></span>
                                     </div>
-                                    <div class="h-2 w-4/5 overflow-hidden rounded-full bg-zinc-200/80 p-0.5 dark:bg-zinc-800">
-                                        <div class="h-full rounded-full bg-linear-to-r from-red-500 to-rose-600 transition-all duration-300 ease-out shadow-sm"
+                                    <div
+                                        class="h-2 w-4/5 overflow-hidden rounded-full bg-zinc-200/80 p-0.5 dark:bg-zinc-800">
+                                        <div class="bg-linear-to-r h-full rounded-full from-red-500 to-rose-600 shadow-sm transition-all duration-300 ease-out"
                                             :style="'width:' + touchProgress + '%'"></div>
                                     </div>
-                                    <p class="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Mengunggah file...</p>
+                                    <p class="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Mengunggah
+                                        file...</p>
                                 </div>
                             </div>
 
@@ -367,9 +377,9 @@
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <x-input.basic wire:model="meta_keywords" label="Meta Keywords (Pisahkan dengan koma)"
-                            placeholder="dashboard, system, indodacin" />
+                            placeholder="api, gateway, razorapi, management" />
                         <x-input.basic wire:model="meta_author" label="Meta Author / Pemilik Hak Cipta"
-                            placeholder="PT. Indodacin Presisi Utama" />
+                            placeholder="RazorAPI" />
                         <x-input.basic wire:model="google_analytics_id"
                             label="Google Analytics Tracking ID (Opsional)" placeholder="e.g. G-XXXXXXXXXX" />
                     </div>
@@ -394,9 +404,9 @@
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <x-input.basic wire:model="footer_company" label="Nama Perusahaan di Footer"
-                            placeholder="PT. Indodacin Presisi Utama™" />
+                            placeholder="RazorAPI™" />
                         <x-input.basic wire:model="footer_url" label="Tautan URL Perusahaan"
-                            placeholder="https://indodacin.com" />
+                            placeholder="https://razorext.my.id" />
                         <x-input.basic wire:model="footer_copyright" label="Teks Hak Cipta (Copyright)"
                             placeholder="All Rights Reserved." />
                     </div>
@@ -421,7 +431,7 @@
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <x-input.basic wire:model="contact_email" label="Email Support / CS"
-                            placeholder="support@indodacin.com" />
+                            placeholder="support@razorext.my.id" />
                         <x-input.basic wire:model="whatsapp_number"
                             label="Nomor WhatsApp CS (Format Internasional tanpa +)" placeholder="628123456789" />
                         <x-input.basic wire:model="social_facebook" label="Link Facebook"

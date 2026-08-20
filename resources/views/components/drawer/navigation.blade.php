@@ -13,9 +13,9 @@
                     class="{{ Route::is('dashboard') ? 'text-red-600 dark:text-red-500' : 'text-zinc-400 dark:text-zinc-500' }} h-6 w-6 transition-all duration-300 group-hover:text-red-500 dark:group-hover:text-red-400" />
             </x-drawer.button>
 
-            <x-drawer.button href="{{ Route::has('attendanceIn.index') ? route('attendanceIn.index') : '#' }}" :label="'Masuk'" :active="Route::is('attendanceIn.index')">
-                <x-icons.arrow-left-bracket
-                    class="{{ Route::is('attendanceIn.index') ? 'text-red-600 dark:text-red-500' : 'text-zinc-400 dark:text-zinc-500' }} h-6 w-6 transition-all duration-300 group-hover:text-red-500 dark:group-hover:text-red-400" />
+            <x-drawer.button href="{{ Route::has('api-clients.index') ? route('api-clients.index') : '#' }}" :label="'Clients'" :active="Route::is('api-clients.*')">
+                <x-icons.code
+                    class="{{ Route::is('api-clients.*') ? 'text-red-600 dark:text-red-500' : 'text-zinc-400 dark:text-zinc-500' }} h-6 w-6 transition-all duration-300 group-hover:text-red-500 dark:group-hover:text-red-400" />
             </x-drawer.button>
 
             <!-- Center Contained Action Button -->
@@ -47,9 +47,9 @@
                 </button>
             </div>
 
-            <x-drawer.button href="{{ Route::has('attendanceOut.index') ? route('attendanceOut.index') : '#' }}" :label="'Keluar'" :active="Route::is('attendanceOut.index')">
-                <x-icons.arrow-right-bracket
-                    class="{{ Route::is('attendanceOut.index') ? 'text-red-600 dark:text-red-500' : 'text-zinc-400 dark:text-zinc-500' }} h-6 w-6 transition-all duration-300 group-hover:text-red-500 dark:group-hover:text-red-400" />
+            <x-drawer.button href="{{ Route::has('sandbox.apriori') ? route('sandbox.apriori') : '#' }}" :label="'Sandbox'" :active="Route::is('sandbox.*')">
+                <x-icons.cpu
+                    class="{{ Route::is('sandbox.*') ? 'text-red-600 dark:text-red-500' : 'text-zinc-400 dark:text-zinc-500' }} h-6 w-6 transition-all duration-300 group-hover:text-red-500 dark:group-hover:text-red-400" />
             </x-drawer.button>
 
             <x-drawer.button href="{{ route('profile.edit') }}" :label="'Profile'" :active="Route::is('profile.edit')">

@@ -16,7 +16,7 @@ class WebAuthnService
     {
         ByteBuffer::$useBase64UrlEncoding = true;
 
-        $rpName = config('app.name', 'Dacin Dashboard');
+        $rpName = config('app.name', 'RazorAPI');
         $rpId = request()->getHost();
         if ($rpId === 'localhost' || $rpId === '127.0.0.1') {
             $rpId = 'localhost';

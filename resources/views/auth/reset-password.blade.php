@@ -1,9 +1,10 @@
 {{-- Goal: Reset password page form, Livewire: None, Alpine: Yes (shares GuestLayout context) --}}
 <x-guest-layout>
     <div class="mx-auto w-full max-w-md">
-        <div
-            class="flex w-full flex-col rounded-2xl border-0 bg-transparent p-4 shadow-none dark:border-0 dark:bg-transparent dark:shadow-none sm:border sm:border-glass-border-light sm:bg-glass-light sm:p-10 sm: sm:shadow-glass-light sm: sm:dark:border-glass-border-dark sm:dark:bg-glass-dark sm:dark:shadow-glass-dark"
-    x-bind:class="dynamicBg ? 'bg-glass-light dark:bg-glass-dark border-glass-border-light dark:border-glass-border-dark backdrop-blur-md shadow-lg shadow-red-500/10' : 'bg-white dark:bg-dark-primary border-zinc-200 dark:border-zinc-800 shadow-sm'">
+        <div class="sm:border-glass-border-light sm:bg-glass-light sm: sm:shadow-glass-light sm: sm:dark:border-glass-border-dark sm:dark:bg-glass-dark sm:dark:shadow-glass-dark flex w-full flex-col rounded-2xl border-0 bg-transparent p-4 shadow-none sm:border sm:p-10 dark:border-0 dark:bg-transparent dark:shadow-none"
+            x-bind:class="dynamicBg ?
+                'bg-glass-light dark:bg-glass-dark border-glass-border-light dark:border-glass-border-dark backdrop-blur-md shadow-lg shadow-red-500/10' :
+                'bg-white dark:bg-dark-primary border-zinc-200 dark:border-zinc-800 shadow-sm'">
 
             <div class="mb-6 pb-2">
                 <a href="{{ route('login') }}"
@@ -29,9 +30,9 @@
                     <x-input.label class="mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-300" for="email"
                         :value="__('Email Account')" />
                     <x-input.text
-                        class="block w-full rounded-xl border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-red-500 focus:bg-white focus:ring-red-500 dark:border-zinc-700 dark:bg-dark-secondary dark:text-white dark:placeholder-zinc-500 dark:focus:border-red-500 dark:focus:bg-dark-secondary [&:-webkit-autofill]:[box-shadow:0_0_0_1000px_#18181b_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:white]"
-                        id="email" name="email" type="email" placeholder="contoh@indodacin.com"
-                        :value="old('email', $request->email)" required autofocus autocomplete="username" />
+                        class="dark:bg-dark-secondary dark:focus:bg-dark-secondary block w-full rounded-xl border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-red-500 focus:bg-white focus:ring-red-500 dark:border-zinc-700 dark:text-white dark:placeholder-zinc-500 dark:focus:border-red-500 [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[box-shadow:0_0_0_1000px_#18181b_inset]"
+                        id="email" name="email" type="email" placeholder="user@razorext.my.id" :value="old('email', $request->email)"
+                        required autofocus autocomplete="username" />
                     <x-input.error class="mt-2" :messages="$errors->get('email')" />
                 </div>
 
@@ -40,7 +41,7 @@
                     <x-input.label class="mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-300" for="password"
                         :value="__('New Password')" />
                     <x-input.text
-                        class="block w-full rounded-xl border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-red-500 focus:bg-white focus:ring-red-500 dark:border-zinc-700 dark:bg-dark-secondary dark:text-white dark:placeholder-zinc-500 dark:focus:border-red-500 dark:focus:bg-dark-secondary [&:-webkit-autofill]:[box-shadow:0_0_0_1000px_#18181b_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:white]"
+                        class="dark:bg-dark-secondary dark:focus:bg-dark-secondary block w-full rounded-xl border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-red-500 focus:bg-white focus:ring-red-500 dark:border-zinc-700 dark:text-white dark:placeholder-zinc-500 dark:focus:border-red-500 [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[box-shadow:0_0_0_1000px_#18181b_inset]"
                         id="password" name="password" type="password" placeholder="••••••••" required
                         autocomplete="new-password" />
                     <x-input.error class="mt-2" :messages="$errors->get('password')" />
@@ -51,7 +52,7 @@
                     <x-input.label class="mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-300"
                         for="password_confirmation" :value="__('Confirm Password')" />
                     <x-input.text
-                        class="block w-full rounded-xl border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-red-500 focus:bg-white focus:ring-red-500 dark:border-zinc-700 dark:bg-dark-secondary dark:text-white dark:placeholder-zinc-500 dark:focus:border-red-500 dark:focus:bg-dark-secondary [&:-webkit-autofill]:[box-shadow:0_0_0_1000px_#18181b_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:white]"
+                        class="dark:bg-dark-secondary dark:focus:bg-dark-secondary block w-full rounded-xl border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-red-500 focus:bg-white focus:ring-red-500 dark:border-zinc-700 dark:text-white dark:placeholder-zinc-500 dark:focus:border-red-500 [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[box-shadow:0_0_0_1000px_#18181b_inset]"
                         id="password_confirmation" name="password_confirmation" type="password" placeholder="••••••••"
                         required autocomplete="new-password" />
                     <x-input.error class="mt-2" :messages="$errors->get('password_confirmation')" />
@@ -59,7 +60,7 @@
 
                 <div class="flex w-full flex-col">
                     <button
-                        class="flex w-full items-center justify-center rounded-xl bg-red-600 py-3.5 text-sm font-bold tracking-wide text-white shadow-lg shadow-red-600/20 transition-all hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-dark-primary"
+                        class="dark:focus:ring-offset-dark-primary flex w-full items-center justify-center rounded-xl bg-red-600 py-3.5 text-sm font-bold tracking-wide text-white shadow-lg shadow-red-600/20 transition-all hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                         type="submit">
                         {{ __('Simpan Password Baru') }}
                         <x-icons.send-right class="ml-2 h-4 w-4" />

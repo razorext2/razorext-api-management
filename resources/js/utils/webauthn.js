@@ -1,4 +1,4 @@
-/** WebAuthn / Passkeys JS Helper for Dacin Dashboard **/
+/** WebAuthn / Passkeys JS Helper for RazorAPI Dashboard **/
 
 function bufferToBase64(buffer) {
     if (!buffer) return "";

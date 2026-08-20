@@ -118,8 +118,8 @@
 .preloader-exit .door-left,
 .preloader-exit .door-right,
 .preloader-exit .part-line-wrapper,
-.preloader-exit .part-indo,
-.preloader-exit .part-dacin {
+.preloader-exit .part-razor,
+.preloader-exit .part-api {
     animation: none !important;
 }
 
@@ -189,8 +189,8 @@ html.dark .door {
     }
 }
 
-.part-indo,
-.part-dacin {
+.part-razor,
+.part-api {
     position: relative;
     padding: 0 0.05em;
     transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -199,7 +199,7 @@ html.dark .door {
 
 /* Precise geometric 20-degree slice through the text.
    tan(20) = 0.36397. For 1em height, shift is 0.364em. */
-.part-indo {
+.part-razor {
     clip-path: polygon(
         0 0,
         calc(100% - 0.15em) 0,
@@ -209,7 +209,7 @@ html.dark .door {
     margin-right: -0.15em;
 }
 
-.part-dacin {
+.part-api {
     clip-path: polygon(
         calc(0.15em + 0.364em) 0,
         100% 0,
@@ -245,14 +245,14 @@ html.dark .door {
 }
 
 /* Initial Entry Animation */
-.part-indo {
-    animation: slideInIndo 1s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+.part-razor {
+    animation: slideInRazor 1s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
-.part-dacin {
-    animation: slideInDacin 1s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+.part-api {
+    animation: slideInApi 1s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
 
-@keyframes slideInIndo {
+@keyframes slideInRazor {
     from {
         transform: translateY(-20vw);
         opacity: 0;
@@ -263,7 +263,7 @@ html.dark .door {
     }
 }
 
-@keyframes slideInDacin {
+@keyframes slideInApi {
     from {
         transform: translateY(20vw);
         opacity: 0;
@@ -289,11 +289,11 @@ html.dark .door {
     transform: skewX(-20deg) scaleY(0);
 }
 
-.preloader-exit .part-indo {
+.preloader-exit .part-razor {
     transform: translate(-100vw, -40vh);
 }
 
-.preloader-exit .part-dacin {
+.preloader-exit .part-api {
     transform: translate(100vw, 40vh);
 }
 

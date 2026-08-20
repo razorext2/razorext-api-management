@@ -64,7 +64,7 @@
 
                     <div class="space-y-2">
                         <x-input.basic wire:model="email" id="email" name="email" type="email"
-                            placeholder="user@indodacin.com">
+                            placeholder="user@razorext.my.id">
                             Alamat Email
                         </x-input.basic>
                         @error('email')
@@ -173,7 +173,7 @@
                         <x-input.basic x-model="search" :labels="false" id="search" name="search"
                             placeholder="Cari role..." />
 
-                        <div class="mt-4 max-h-100 overflow-y-auto pr-1">
+                        <div class="max-h-100 mt-4 overflow-y-auto pr-1">
                             <div class="flex flex-col gap-2">
                                 @foreach ($list_roles as $role)
                                     <label

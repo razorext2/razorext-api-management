@@ -67,22 +67,22 @@ class Index extends Component
 
     public function mount(): void
     {
-        $this->site_name = (string) setting('site_name', 'Indodacin');
-        $this->site_title = (string) setting('site_title', 'Dashboard System');
-        $this->sidebar_title = (string) setting('sidebar_title', 'Attendance');
-        $this->auth_subtitle = (string) setting('auth_subtitle', 'Presisi Utama');
-        $this->auth_description = (string) setting('auth_description', 'Sistem informasi terpadu untuk koordinasi, pelaporan, dan manajemen data operasional secara langsung.');
+        $this->site_name = (string) setting('site_name', 'RazorAPI');
+        $this->site_title = (string) setting('site_title', 'API Gateway & Management');
+        $this->sidebar_title = (string) setting('sidebar_title', 'RazorAPI');
+        $this->auth_subtitle = (string) setting('auth_subtitle', 'API Platform');
+        $this->auth_description = (string) setting('auth_description', 'Platform manajemen API modern untuk pengelolaan gateway, autentikasi client, dan analitik performa.');
         $this->app_version = (string) setting('app_version', 'v2.4.0');
 
-        $this->meta_description = (string) setting('meta_description', 'Dashboard System PT. Indodacin Presisi Utama');
-        $this->meta_keywords = (string) setting('meta_keywords', 'dashboard, system, indodacin, attendance');
-        $this->meta_author = (string) setting('meta_author', 'PT. Indodacin Presisi Utama');
+        $this->meta_description = (string) setting('meta_description', 'RazorAPI - Modern API Gateway & Client Management Platform');
+        $this->meta_keywords = (string) setting('meta_keywords', 'api, gateway, management, razorapi, developer, portal');
+        $this->meta_author = (string) setting('meta_author', 'RazorAPI');
 
-        $this->footer_company = (string) setting('footer_company', 'PT. Indodacin Presisi Utama™');
-        $this->footer_url = (string) setting('footer_url', 'https://indodacin.com');
+        $this->footer_company = (string) setting('footer_company', 'RazorAPI™');
+        $this->footer_url = (string) setting('footer_url', 'https://razorext.my.id');
         $this->footer_copyright = (string) setting('footer_copyright', 'All Rights Reserved.');
 
-        $this->contact_email = (string) setting('contact_email', 'support@indodacin.com');
+        $this->contact_email = (string) setting('contact_email', 'support@razorext.my.id');
         $this->whatsapp_number = (string) setting('whatsapp_number', '628123456789');
         $this->office_address = (string) setting('office_address', 'Jl. Raya Industri No. 88, Jakarta');
         $this->google_analytics_id = (string) setting('google_analytics_id', '');

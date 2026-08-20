@@ -16,7 +16,7 @@ it('can access chatbot page', function () {
     $this->actingAs($this->user)
         ->get(route('chatbot.index'))
         ->assertSuccessful()
-        ->assertSee('Dacin AI');
+        ->assertSee('Razor AI');
 });
 
 it('redirects guests to login', function () {

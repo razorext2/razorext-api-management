@@ -14,7 +14,7 @@ class UpdateLog extends Component
     {
         return Cache::remember('github_repo_stats_v2', 86400, function () {
             $token = config('services.github.token');
-            $url = 'https://api.github.com/repos/razorext2/faceAttendanceV2/commits';
+            $url = 'https://api.github.com/repos/razorext2/razorext-api-management/commits';
 
             // 1. Get total count from Link header
             $response = Http::withToken($token)->timeout(10)->get($url, ['per_page' => 1]);
@@ -57,7 +57,7 @@ class UpdateLog extends Component
 
         return Cache::remember('github_commit_histories_v3', 1800, function () {
             $token = config('services.github.token');
-            $repo = 'razorext2/faceAttendanceV2';
+            $repo = 'razorext2/razorext-api-management';
 
             $response = Http::withToken($token)
                 ->timeout(10)

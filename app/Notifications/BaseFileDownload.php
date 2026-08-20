@@ -64,12 +64,12 @@ class BaseFileDownload extends Notification implements ShouldQueue
     public function toWebPush($notifiable, $notification): WebPushMessage
     {
         return (new WebPushMessage)
-            ->title('PT. Indodacin Presisi Utama')
+            ->title(setting('site_name', 'RazorAPI'))
             ->body($this->message)
             ->icon(asset('images/brand/logo.ico'))
             ->badge(asset('images/brand/logo.ico'))
             ->action($this->label, route($this->route, $this->parameters))
-            ->tag('Indodacin')
+            ->tag('RazorAPI')
             ->data(['url' => route($this->route, $this->parameters)]);
     }
 }

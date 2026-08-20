@@ -71,9 +71,9 @@
         <div class="flex items-center justify-start pl-5">
             <a class="flex items-center gap-2.5" href="{{ config('app.url') }}">
                 <img class="h-8 w-8 rounded-lg object-contain" src="{{ setting('logo_path') ? asset('storage/' . setting('logo_path')) : asset('images/brand/logo.png') }}"
-                    alt="{{ setting('site_name', 'Attendance') }} Logo" loading="lazy" />
+                    alt="{{ setting('site_name', 'RazorAPI') }} Logo" loading="lazy" />
                 <span class="text-lg font-bold italic tracking-wide text-zinc-900 dark:text-white">
-                    {{ setting('sidebar_title', 'Attendance') }}
+                    {{ setting('sidebar_title', 'RazorAPI') }}
                 </span>
             </a>
         </div>
